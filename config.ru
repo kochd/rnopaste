@@ -1,4 +1,4 @@
-# Add your database here
+## Add your database here
 # Postgres is prefered. Others should work the same
 #          'databse://user:password@server/database-name'
 DATABASE = 'sqlite://pastes.db'
