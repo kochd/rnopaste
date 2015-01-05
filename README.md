@@ -3,6 +3,9 @@ rnopaste
 
 Simple NoPaste service inspired by [pnopaste](https://github.com/tpruvot/pnopaste)
 
+# Example
+[Here]((http://paste.triple6.org)
+
 # How to install
 * apt-get install bundler
 * bundle install
