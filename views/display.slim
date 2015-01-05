@@ -1,0 +1,23 @@
+a href="/#{@pasteid}/raw"  Raw
+- paste = Paste[@pasteid]
+table
+  tr
+    th Creator:
+    td #{paste.creator}
+  tr
+    th Created:
+    td #{paste.created.strftime(DATE_FORMAT)}
+  tr
+    th Expires:
+    td #{paste.expires.strftime(DATE_FORMAT)}
+  tr
+    th Language:
+    td #{paste.language}
+
+- formatter = Rouge::Formatters::HTML.new(css_class: 'highlight', line_numbers: LINE_NUMBERS)
+- lexer = Object.const_get("Rouge").const_get("Lexers").const_get(paste.language)
+
+style type="text/css"
+  == Object.const_get("Rouge").const_get("Themes").const_get(THEME).render(scope: '.highlight')
+
+== formatter.format(lexer.lex(paste.body))

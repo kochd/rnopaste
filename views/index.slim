@@ -1,0 +1,29 @@
+form action="/" method="post"
+  p
+    | Your name:
+    br
+    input name="creator" type="text"
+  p
+    | Expires in:
+    br
+    select name="expires"
+      - EXPIRES.each do |text,value|
+        option value=value #{text}
+  p
+    | Laguange:
+    br
+    select name="language"
+      option value="PlainText" PlainText
+      - LANGUAGES.each do |lang|
+        - next if lang == :PlainText
+        option value=lang #{lang}
+  p
+    | Description:
+    br
+    textarea rows="6" name="description"
+  p
+    | Code:
+    br
+    textarea rows="20" name="body"
+  p
+    input type="submit"

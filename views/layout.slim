@@ -1,0 +1,10 @@
+doctype html
+html
+  head
+    link rel="stylesheet" type="text/css" href="/css/main.css"
+  body
+    title Ruby Nopaste
+    a href="/" New
+    == yield
+    center
+      | Rendered in #{Time.now - @render_start} seconds
