@@ -19,6 +19,7 @@ class RNoPaste < Sinatra::Base
 
   get '/:pasteid' do
     @pasteid = params['pasteid']
+    redirect to '/' if Paste[params['pasteid']].nil?
     slim :display
   end
 
