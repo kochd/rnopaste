@@ -5,6 +5,7 @@
 *.gem
 *.rbc
 /.config
+/config.ru
 /coverage/
 /InstalledFiles
 /pkg/
