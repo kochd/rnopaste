@@ -9,6 +9,7 @@ Simple NoPaste service inspired by [pnopaste](https://github.com/tpruvot/pnopast
 # How to install
 * apt-get install bundler
 * bundle install
+* cp config.ru.sample config.ru
 * thin start -p 4444
 * Open [http://localhost:4444](http://localhost:4444) in your browser
 

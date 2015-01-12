@@ -1,5 +1,5 @@
-a href="/#{@pasteid}/raw"  Raw
-- paste = Paste[@pasteid]
+a href="/#{@hashid}/raw"  Raw
+- paste = Paste.first(hashid: @hashid)
 table
   tr
     th Creator:

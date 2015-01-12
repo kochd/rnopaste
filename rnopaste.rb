@@ -2,10 +2,12 @@
 require 'sinatra/base'
 require 'slim'
 require 'rouge'
+require 'securerandom'
 
 LANGUAGES = Rouge::Lexers.constants
 
 require_relative './lib/db.rb'
+require_relative './lib/migrate.rb'
 require_relative './lib/expire.rb'
 
 class RNoPaste < Sinatra::Base
@@ -17,15 +19,15 @@ class RNoPaste < Sinatra::Base
     slim :index
   end
 
-  get '/:pasteid' do
-    @pasteid = params['pasteid']
-    redirect to '/' if Paste[params['pasteid']].nil?
+  get '/:hashid' do
+    @hashid = params['hashid']
+    redirect to '/' unless Paste.first(hashid: @hashid)
     slim :display
   end
 
-  get '/:pasteid/raw' do
+  get '/:hashid/raw' do
     content_type 'text/plain'
-    Paste[params['pasteid']].body
+    Paste.first(hashid: params['hashid']).body
   end
 
   post '/' do
@@ -34,13 +36,21 @@ class RNoPaste < Sinatra::Base
       redirect to '/'
     end
 
+
+    #generate the hashid
+    hashid = nil
+    while hashid.nil? || Paste.first(hashid: hashid)
+      hashid = SecureRandom.urlsafe_base64(HASH_LENGTH)
+    end
+
     paste = Paste.create(description: params['description'],
                          language: params['language'],
                          creator: params['creator'],
                          created: Time.now,
                          expires: Time.now + params['expires'].to_i,
-                         body: params['body'].gsub("\r\n", "\n")
+                         body: params['body'].gsub("\r\n", "\n"),
+                         hashid: hashid
                         )
-    redirect to "/#{paste.id}"
+    redirect to "/#{paste.hashid}"
   end
 end
