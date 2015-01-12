@@ -12,6 +12,7 @@ Sequel.migration do
     end
     alter_table :pastes do
       set_column_not_null :hashid
+      add_index :hashid
     end
   end
 end
