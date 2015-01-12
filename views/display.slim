@@ -13,6 +13,10 @@ table
   tr
     th Language:
     td #{paste.language}
+  tr
+    th Link:
+    td
+      input value="#{request.env['HTTP_HOST']}#{request.path_info}"
 
 - formatter = Rouge::Formatters::HTML.new(css_class: 'highlight', line_numbers: LINE_NUMBERS)
 - lexer = Object.const_get("Rouge").const_get("Lexers").const_get(paste.language)
