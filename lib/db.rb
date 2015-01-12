@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'sequel'
-db = DATABASE
 Sequel.extension :migration
-DB = Sequel.connect(db)
+DB = Sequel.connect(DATABASE)
 Sequel::Migrator.run(DB, './migrations')
 
 class Paste < Sequel::Model; end

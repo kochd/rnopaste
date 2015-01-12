@@ -7,7 +7,6 @@ require 'securerandom'
 LANGUAGES = Rouge::Lexers.constants
 
 require_relative './lib/db.rb'
-require_relative './lib/migrate.rb'
 require_relative './lib/expire.rb'
 
 class RNoPaste < Sinatra::Base
