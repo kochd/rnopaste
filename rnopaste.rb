@@ -42,6 +42,8 @@ class RNoPaste < Sinatra::Base
       hashid = SecureRandom.urlsafe_base64(HASH_LENGTH)
     end
 
+    params['creator'] = 'Anonymous' if params['creator'].empty?
+
     paste = Paste.create(description: params['description'],
                          language: params['language'],
                          creator: params['creator'],
