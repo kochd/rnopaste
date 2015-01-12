@@ -5,6 +5,9 @@ html
   body
     title Ruby Nopaste
     a href="/" New
+    - if DISPLAY_RIBBON
+      a href="https://github.com/kochd/rnopaste"
+        img style="position: absolute; top: 0; right: 0; border: 0;" src="/img/forkme_right_green_007200.png" alt="Fork me on GitHub" data-canonical-src="/img/forkme_right_green_007200.png"
     == yield
     center
       | Rendered in #{Time.now - @render_start} seconds

@@ -10,6 +10,12 @@ EXPIRES = {
   '1 Hour' => 60 * 60
 }
 
+# Hash length (bit)
+HASH_LENGTH = 4
+
+# Display "Fork me on github" Ribbon
+DISPLAY_RIBBON = true
+
 # Check every X seconds for expired pastes and delete them
 EXPIRES_CHECK_EVERY = 600
 
