@@ -1,27 +1,34 @@
 a href="/#{@hashid}/raw"  Raw
 - paste = Paste.first(hashid: @hashid)
-table
-  tr
-    th Creator:
-    td #{paste.creator}
-  tr
-    th Created:
-    td #{paste.created.strftime(DATE_FORMAT)}
-  tr
-    th Expires:
-    td #{paste.expires.strftime(DATE_FORMAT)}
-  tr
-    th Language:
-    td #{paste.language}
-  tr
-    th Link:
-    td
-      input value="#{request.env['HTTP_HOST']}#{request.path_info}"
-
-- formatter = Rouge::Formatters::HTML.new(css_class: 'highlight', line_numbers: LINE_NUMBERS)
-- lexer = Object.const_get("Rouge").const_get("Lexers").const_get(paste.language)
-
-style type="text/css"
-  == Object.const_get("Rouge").const_get("Themes").const_get(THEME).render(scope: '.highlight')
-
-== formatter.format(lexer.lex(paste.body))
+- params['language'] ||= paste.language
+form action="#{request.path_info}" method="post"
+  table
+    tr
+      th Creator:
+      td #{paste.creator}
+    tr
+      th Created:
+      td #{paste.created.strftime(DATE_FORMAT)}
+    tr
+      th Expires:
+      td #{paste.expires.strftime(DATE_FORMAT)}
+    tr
+      th Language:
+      td
+        select name="language"
+          option value=params['language'] #{params['language']}
+          - LANGUAGES.each do |lang|
+           - next if lang.to_s == params['language']
+           option value=lang #{lang}
+        #{paste.language}
+      td
+        input type="submit" value="Submit"
+    tr
+      th Link:
+      td
+        input value="#{request.env['HTTP_HOST']}#{request.path_info}"
+  - formatter = Rouge::Formatters::HTML.new(css_class: 'highlight', line_numbers: LINE_NUMBERS)
+  - lexer = Object.const_get("Rouge").const_get("Lexers").const_get(params['language'])
+  style type="text/css"
+    == Object.const_get("Rouge").const_get("Themes").const_get(THEME).render(scope: '.highlight')
+  == formatter.format(lexer.lex(paste.body))

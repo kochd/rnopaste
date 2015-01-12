@@ -24,6 +24,12 @@ class RNoPaste < Sinatra::Base
     slim :display
   end
 
+  post '/:hashid' do
+    @hashid = params['hashid']
+    redirect to '/' unless Paste.first(hashid: @hashid)
+    slim :display
+  end
+
   get '/:hashid/raw' do
     content_type 'text/plain'
     Paste.first(hashid: params['hashid']).body
