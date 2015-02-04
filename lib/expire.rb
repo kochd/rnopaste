@@ -3,7 +3,7 @@ Thread.new do
   loop do
     sleep EXPIRES_CHECK_EVERY
     Paste.all.each do |paste|
-      Paste.delete if paste.expires < Time.now
+      paste.delete if paste.expires < Time.now
     end
   end
 end
